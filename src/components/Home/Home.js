@@ -33,7 +33,7 @@ function Home() {
         })
         .catch((error) => console.error("Error fetching user data:", error));
         axios
-        .get(`http://localhost:4000/roles/${id}`) // Pass userId to API
+        .get(`https://portfolioback-kappa.vercel.app/roles/${id}`) // Pass userId to API
         .then((response) => {
          setRoleData(response.data);
           console.log("User data:", response.data);

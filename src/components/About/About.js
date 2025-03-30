@@ -44,7 +44,7 @@ function About() {
     useEffect(() => {
       if (id) {
         axios
-          .get(`http://localhost:4000/about/${id}`) // Pass userId to API
+          .get(`https://portfolioback-kappa.vercel.app/about/${id}`) // Pass userId to API
           .then((response) => {
             setUserData(response.data); 
             
