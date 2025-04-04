@@ -17,18 +17,25 @@ function Projects() {
     console.log("userId",id)// Get userId from URL
     const [projectData, setprojectData] = useState(null);
   
-    useEffect(() => {
-      if (id) {
-        axios
-          .get(`https://portfolioback-kappa.vercel.app/project/${id}`) // Pass userId to API
-          .then((response) => {
-            setprojectData(response.data);
-            console.log("User data:", response.data);
-          })
-          .catch((error) => console.error("Error fetching user data:", error));
+    
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (id) {
+          const response = await axios.get(`https://portfolioback-kappa.vercel.app/project/${id}`);
+          setprojectData(response.data);
+          console.log("User data:", response.data);
 
+          const skillsetResponse = await axios.get(`http://localhost:4000/skillset/${id}`);
+          console.log("Skillset:", skillsetResponse);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
       }
-    }, [id]);
+    };
+
+    fetchData();
+  }, [id]);
   
     if (!projectData) {
       return <h2>Loading...</h2>;

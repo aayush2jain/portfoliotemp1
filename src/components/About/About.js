@@ -3,6 +3,11 @@ import { Container, Row, Col } from "react-bootstrap";
 import Particle from "../Particle";
 import NavBar from "../Navbar.js";
 import { CgCPlusPlus } from "react-icons/cg";
+import { FaGithub } from "react-icons/fa6";
+import { TiHtml5 } from "react-icons/ti";
+import { IoLogoCss3 } from "react-icons/io";
+import { TbBrandCpp } from "react-icons/tb";
+
 import {
   SiVisualstudiocode,
   SiPostman,
@@ -36,34 +41,39 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 function About() {
-  const { id } = useParams(); 
-    console.log("userId",id)// Get userId from URL
-    const [userData, setUserData] = useState(null);
-    const [hobbyData, sethobbyData] = useState(null);
-  
-    useEffect(() => {
-      if (id) {
-        axios
-          .get(`https://portfolioback-kappa.vercel.app/about/${id}`) // Pass userId to API
-          .then((response) => {
-            setUserData(response.data); 
-            
-            console.log("User data:", response);
-          })
-          .catch((error) => console.error("Error fetching user data:", error));
-          axios
-          .get(`https://portfolioback-kappa.vercel.app/hobby/${id}`) // Pass userId to API
-          .then((response) => {
-           sethobbyData(response.data);
-            console.log("Userhobby data:", response.data);
-          })
-          .catch((error) => console.error("Error fetching user data:", error));
+  const { id } = useParams();
+  console.log("userId", id); // Get userId from URL
+
+  const [userData, setUserData] = useState(null);
+  const [hobbyData, setHobbyData] = useState(null);
+  const [skillData,setskillData] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (id) {
+          const userResponse = await axios.get(`https://portfolioback-kappa.vercel.app/about/${id}`);
+          setUserData(userResponse.data);
+          console.log("User data:", userResponse.data);
+
+          const hobbyResponse = await axios.get(`https://portfolioback-kappa.vercel.app/hobby/${id}`);
+          setHobbyData(hobbyResponse.data);
+          console.log("User hobby data:", hobbyResponse.data);
+
+          const skillsetResponse = await axios.get(`http://localhost:4000/skillset/${id}`);
+          console.log("Skillset:", skillsetResponse.data);
+          setskillData(skillsetResponse.data);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
       }
-    }, [id]);
-  
-    if (!userData) {
-      return <h2>Loading...</h2>;
-    }
+    };
+
+    fetchData();
+  }, [id]);
+
+  if (!userData) {
+    return <h2>Loading...</h2>;
+  }
   return (
     <Container fluid className="about-section">
       <Particle />
@@ -119,19 +129,37 @@ hobbyData.map((hobby) => {
             <img src={laptopImg} alt="about" className="img-fluid" />
           </Col>
         </Row>
-        {/* <h1 className="project-heading">
+        <h1 className="project-heading">
           Professional <strong className="purple">Skillset </strong>
         </h1>
 
         <Row style={{ justifyContent: "center", paddingBottom: "50px" }}>
-              <Col xs={4} md={2} className="tech-icons">
+        
+        {skillData.length > 0 ? (
+            skillData.map((skill, index) => (
+              <Col key={index} xs={4} md={2} className="tech-icons">
+                {skill.skill === "Javascript" && <DiJavascript1 />}
+                {skill.skill === "C++" && <CgCPlusPlus />}
+                {skill.skill === "Github" && <FaGithub />}
+                {skill.skill === "NodeJs" && <DiNodejs />}
+                {skill.skill === "React" && <DiReact />}  
+                {skill.skill === "Html" && <TiHtml5 />}
+                {skill.skill === "MongoDb" && <DiMongodb />}
+                {skill.skill === "CSS" && <IoLogoCss3 />}
+                {skill.skill === "MySQL" && <SiPostgresql />}
+                {skill.skill === "Python" && <DiPython />}
+              </Col>
+            ))
+          ) : (
+            <p>Loading skills...</p>
+          )}
+
+              {/* <Col xs={4} md={2} className="tech-icons">
                 <CgCPlusPlus />
               </Col>
+              
               <Col xs={4} md={2} className="tech-icons">
-                <DiJavascript1 />
-              </Col>
-              <Col xs={4} md={2} className="tech-icons">
-                <TbBrandGolang />
+                <FaGithub />
               </Col>
               <Col xs={4} md={2} className="tech-icons">
                 <DiNodejs />
@@ -140,35 +168,35 @@ hobbyData.map((hobby) => {
                 <DiReact />
               </Col>
               <Col xs={4} md={2} className="tech-icons">
-                <SiSolidity />
+                < TiHtml5/>
               </Col>
               <Col xs={4} md={2} className="tech-icons">
                 <DiMongodb />
               </Col>
               <Col xs={4} md={2} className="tech-icons">
-                <SiNextdotjs />
-              </Col>
-              <Col xs={4} md={2} className="tech-icons">
+                <IoLogoCss3 />
+              </Col> */}
+              {/* <Col xs={4} md={2} className="tech-icons">
                 <DiGit />
-              </Col>
-              <Col xs={4} md={2} className="tech-icons">
+              </Col> */}
+              {/* <Col xs={4} md={2} className="tech-icons">
                 <SiFirebase />
-              </Col>
-              <Col xs={4} md={2} className="tech-icons">
-                <SiRedis />
-              </Col>
-              <Col xs={4} md={2} className="tech-icons">
+              </Col> */}
+              {/* <Col xs={4} md={2} className="tech-icons">
+                <TbBrandCpp />
+              </Col> */}
+              {/* <Col xs={4} md={2} className="tech-icons">
                 <SiPostgresql />
               </Col>
               <Col xs={4} md={2} className="tech-icons">
                 <DiPython />
-              </Col>
-              <Col xs={4} md={2} className="tech-icons">
+              </Col> */}
+              {/* <Col xs={4} md={2} className="tech-icons">
                 <DiJava />
-              </Col>
+              </Col> */}
             </Row>
 
-        <h1 className="project-heading">
+        {/* <h1 className="project-heading">
           <strong className="purple">Tools</strong> I use
         </h1>
         <Row style={{ justifyContent: "center", paddingBottom: "50px" }}>

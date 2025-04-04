@@ -40,6 +40,7 @@ function NavBar({id}) {
           console.log("User data resume:", response.data.resume);
         })
         .catch((error) => console.error("Error fetching user data:", error));
+       axios.post("https://portfolioback-kappa.vercel.app/visit", {id});
       }
   }, [id]);
 
