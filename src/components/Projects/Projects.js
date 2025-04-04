@@ -57,7 +57,7 @@ function Projects() {
               <Col md={4} className="project-card">
               <ProjectCard
                 imgPath={project.image}
-                title= {project.projectName}
+                title= {project.projectname}
                 description={project.description}
                 demoLink={project.demoLink}
               />
