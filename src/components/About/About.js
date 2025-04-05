@@ -59,7 +59,7 @@ function About() {
           setHobbyData(hobbyResponse.data);
           console.log("User hobby data:", hobbyResponse.data);
 
-          const skillsetResponse = await axios.get(`http://localhost:4000/skillset/${id}`);
+          const skillsetResponse = await axios.get(`https://portfolioback-kappa.vercel.app/skillset/${id}`);
           console.log("Skillset:", skillsetResponse.data);
           setskillData(skillsetResponse.data);
         }
