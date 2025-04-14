@@ -144,7 +144,7 @@ hobbyData.map((hobby) => {
                 {skill.skill === "NodeJs" && <DiNodejs />}
                 {skill.skill === "React" && <DiReact />}  
                 {skill.skill === "Html" && <TiHtml5 />}
-                {skill.skill === "MongoDb" && <DiMongodb />}
+                {skill.skill === "MongoDB" && <DiMongodb />}
                 {skill.skill === "CSS" && <IoLogoCss3 />}
                 {skill.skill === "MySQL" && <SiPostgresql />}
                 {skill.skill === "Python" && <DiPython />}

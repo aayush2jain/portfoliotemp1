@@ -101,14 +101,22 @@ function Home() {
               LET ME <span className="purple"> INTRODUCE </span> MYSELF
             </h1>
             <p className="home-about-body">
-              I fell in love with <b className="purple"> {userData.profession}</b> and I have at least learnt
-              something, I think… 🤷‍♂️
+              {userData.profession && (
+                <>
+                 I fell in love with <b className="purple"> {userData.profession}</b> and I have at least learnt
+                 something, I think… 🤷‍♂️
+                </>
+              )}
               <br />
-              <br />I am fluent in classics like
-              <i>
-                <b className="purple"> {userData.coding_languages} </b>
-              </i>
-              <br />
+              {userData.coding_languages && (
+                <>
+               <br />I am fluent in classics like
+               <i>
+                 <b className="purple"> {userData.coding_languages} </b>
+               </i>
+               <br />
+               </>
+              )}
               <br />
               {userData.about}&nbsp;
               {/* <i>
@@ -120,8 +128,12 @@ function Home() {
               </i> */}
               <br />
               <br />
-              Whenever possible, I also apply my passion for developing products
-              with <b className="purple">{userData.tech_stacks}</b>
+              {userData.tech_stacks && (
+                <>
+                 Whenever possible, I also apply my passion for developing products
+                 with <b className="purple">{userData.tech_stacks}</b>
+                </>
+              )}
               {/* <i>
                 <b className="purple">
                   {" "}
